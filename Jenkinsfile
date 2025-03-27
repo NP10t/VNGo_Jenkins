@@ -9,6 +9,30 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup Environment') {
+            steps {
+                script {
+                    sh '''
+                        # Stop and remove any existing mysql-service container
+                        docker stop mysql-service || true
+                        docker rm mysql-service || true
+                        # Remove dangling images and containers
+                        docker system prune -f
+                    '''
+                }
+            }
+        }
+
+        stage('Check Java Environment') {
+            steps {
+                sh '''
+                    echo "Java Version:"
+                    java -version
+                    echo "Java Home: $JAVA_HOME"
+                    echo "PATH: $PATH"
+                '''
+            }
+        }
 
         stage('Setup MySQL Service') {
             steps {
@@ -50,20 +74,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            script {
-                sh '''
-                    docker stop mysql-service || true
-                    docker rm mysql-service || true
-                '''
-            }
-        }
-        success {
-            echo 'Build and tests completed successfully!'
-        }
-        failure {
-            echo 'Build or tests failed.'
-        }
-    }
 }
