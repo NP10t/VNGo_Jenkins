@@ -9,6 +9,14 @@ pipeline {
     }
 
     stages {
+
+        stage('Check Agent') {
+            steps {
+                sh 'hostname'
+                sh 'docker info'
+            }
+        }
+
         stage('Cleanup Environment') {
             steps {
                 script {
@@ -33,22 +41,11 @@ pipeline {
             }
         }
 
-        stage('Setup Network') {
-            steps {
-                script {
-                    sh '''
-                        docker network ls | grep -q jenkins || docker network create jenkins
-                    '''
-                }
-            }
-        }
-
         stage('Setup MySQL Service') {
             steps {
                 script {
                     sh '''
                         docker run -d --name mysql-service \
-                            --network jenkins \
                             -e MYSQL_ROOT_PASSWORD=123456 \
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
