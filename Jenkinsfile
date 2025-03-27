@@ -6,6 +6,7 @@ pipeline {
     environment {
         JAVA_HOME = "/opt/java/openjdk"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        DOCKER_HOST = "tcp://172.26.0.3:2375"
     }
 
     stages {
