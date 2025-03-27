@@ -6,7 +6,6 @@ pipeline {
     environment {
         JAVA_HOME = "/opt/java/openjdk"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        DOCKER_HOST = "tcp://172.26.0.3:2375"
     }
 
     stages {
@@ -14,11 +13,10 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        # Stop and remove any existing mysql-service container
+                        docker info || echo "Docker not reachable"
                         docker stop mysql-service || true
-                        docker rm mysql-service || true
-                        # Remove dangling images and containers
-                        docker system prune -f
+                        docker rm -f mysql-service || true
+                        docker system prune -f || true
                     '''
                 }
             }
@@ -40,6 +38,7 @@ pipeline {
                 script {
                     sh '''
                         docker run -d --name mysql-service \
+                            --network jenkins \  // Thêm vào network jenkins
                             -e MYSQL_ROOT_PASSWORD=123456 \
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
@@ -75,4 +74,20 @@ pipeline {
         }
     }
 
+    post {
+        always {
+            script {
+                sh '''
+                    docker stop mysql-service || true
+                    docker rm -f mysql-service || true
+                '''
+            }
+        }
+        success {
+            echo 'Build and tests completed successfully!'
+        }
+        failure {
+            echo 'Build or tests failed.'
+        }
+    }
 }
