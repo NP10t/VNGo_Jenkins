@@ -49,7 +49,7 @@ pipeline {
                             -e MYSQL_ROOT_PASSWORD=123456 \
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
-                            mysql:8.0 \
+                            mysql:latest \
                             --health-cmd="mysqladmin ping" \
                             --health-interval=10s \
                             --health-timeout=5s \
