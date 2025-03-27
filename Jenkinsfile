@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = "/usr/lib/jvm/java-21-openjdk"
+        JAVA_HOME = "/opt/java/openjdk"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
