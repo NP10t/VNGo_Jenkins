@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = "/opt/java/openjdk"
+        JAVA_HOME = "/usr/lib/jvm/java-21-openjdk"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
@@ -49,7 +49,7 @@ pipeline {
                             -e MYSQL_ROOT_PASSWORD=123456 \
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
-                            mysql:latest \
+                            mysql:8.0 \
                     '''
                     sh '''
                         until docker exec mysql-service mysql -uroot -p123456 -e "SELECT 1;" > /dev/null 2>&1; do
