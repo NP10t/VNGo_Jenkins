@@ -38,7 +38,7 @@ pipeline {
                 script {
                     sh '''
                         docker run -d --name mysql-service \
-                            --network jenkins \  // Thêm vào network jenkins
+                            --network jenkins \
                             -e MYSQL_ROOT_PASSWORD=123456 \
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
