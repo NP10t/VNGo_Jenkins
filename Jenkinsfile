@@ -78,20 +78,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            script {
-                sh '''
-                    docker stop mysql-service || true
-                    docker rm -f mysql-service || true
-                '''
-            }
-        }
-        success {
-            echo 'Build and tests completed successfully!'
-        }
-        failure {
-            echo 'Build or tests failed.'
-        }
-    }
+    
 }

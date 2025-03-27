@@ -4,7 +4,7 @@ server:
     context-path: "/vngo"
 spring:
   datasource:
-    url: jdbc:mysql://mysql-service:3306/vngo
+    url: jdbc:mysql://localhost:3306/vngo
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: root
     password: 123456
