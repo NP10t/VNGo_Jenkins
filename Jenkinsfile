@@ -10,9 +10,9 @@ pipeline {
 
     stages {
 
-        stage('webhool') {
+        stage('init webhook') {
             steps {
-                archiveArtifacts artifacts: '', followSymlinks: false
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubtoken', url: 'https://github.com/NP10t/VNGo_Jenkins.git']])
             }
         }
 
