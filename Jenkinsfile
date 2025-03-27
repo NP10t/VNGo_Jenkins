@@ -33,6 +33,16 @@ pipeline {
             }
         }
 
+        stage('Setup Network') {
+            steps {
+                script {
+                    sh '''
+                        docker network ls | grep -q jenkins || docker network create jenkins
+                    '''
+                }
+            }
+        }
+
         stage('Setup MySQL Service') {
             steps {
                 script {
