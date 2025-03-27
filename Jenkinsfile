@@ -1,14 +1,15 @@
 pipeline {
-    agent {
-        label 'docker-python-label'
+    agent { 
+        label 'docker-python-label' 
     }
 
     environment {
-        JAVA_HOME = tool name: 'JDK21', type: 'jdk'
+        JAVA_HOME = "/opt/java/openjdk"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
+
         stage('Setup MySQL Service') {
             steps {
                 script {
@@ -51,7 +52,6 @@ pipeline {
 
     post {
         always {
-            // Cleanup: Stop and remove the MySQL container
             script {
                 sh '''
                     docker stop mysql-service || true
