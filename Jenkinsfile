@@ -50,16 +50,13 @@ pipeline {
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
                             mysql:latest \
-                            --health-cmd="mysql -uroot -p123456 -e 'SELECT 1;'" \
-                            --health-interval=10s \
-                            --health-timeout=5s \
-                            --health-retries=3
                     '''
                     sh '''
-                        until docker inspect mysql-service --format='{{.State.Health.Status}}' | grep -q "healthy"; do
-                            echo "Waiting for MySQL to be healthy..."
+                        until docker exec mysql-service mysql -uroot -p123456 -e "SELECT 1;" > /dev/null 2>&1; do
+                            echo "Waiting for MySQL to be ready..."
                             sleep 5
                         done
+                        echo "MySQL is ready!"
                     '''
                 }
             }
