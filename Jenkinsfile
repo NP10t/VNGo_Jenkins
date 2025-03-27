@@ -50,7 +50,7 @@ pipeline {
                             -e MYSQL_DATABASE=vngo \
                             -p 3306:3306 \
                             mysql:latest \
-                            --health-cmd="mysqladmin ping" \
+                            --health-cmd="mysql -uroot -p123456 -e 'SELECT 1;'" \
                             --health-interval=10s \
                             --health-timeout=5s \
                             --health-retries=3
