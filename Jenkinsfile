@@ -10,11 +10,11 @@ pipeline {
 
     stages {
 
-        stage('init webhook') {
-            steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubtoken', url: 'https://github.com/NP10t/VNGo_Jenkins.git']])
-            }
-        }
+        // stage('init webhook') {
+        //     steps {
+        //         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubtoken', url: 'https://github.com/NP10t/VNGo_Jenkins.git']])
+        //     }
+        // }
 
         stage('Check Agent') {
             steps {
