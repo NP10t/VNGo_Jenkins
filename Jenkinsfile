@@ -10,6 +10,12 @@ pipeline {
 
     stages {
 
+        stage('webhool') {
+            steps {
+                archiveArtifacts artifacts: '', followSymlinks: false
+            }
+        }
+
         stage('Check Agent') {
             steps {
                 sh 'hostname'
