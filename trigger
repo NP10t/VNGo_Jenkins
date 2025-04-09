@@ -6,3 +6,5 @@ truoc khi cherry pick
 checkout main
 
 checkout main 2
+
+release
