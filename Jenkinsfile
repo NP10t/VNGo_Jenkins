@@ -76,6 +76,22 @@ pipeline {
                 sh './mvnw package -DskipTests'
             }
         }
+
+        stage('Report Status') {
+            steps {
+                script {
+                    def status = currentBuild.result == 'SUCCESS' ? 'success' : 'failure'
+                    def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                    step([
+                        $class: 'GitHubCommitStatusSetter',
+                        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/your-username/your-repo"],
+                        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
+                        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
+                        statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]]
+                    ])
+                }
+            }
+        }
     }
 
 
