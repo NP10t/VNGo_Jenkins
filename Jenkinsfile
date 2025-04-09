@@ -82,14 +82,14 @@ pipeline {
                 script {
                     def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
                     def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
-                    withCredentials([string(credentialsId: 'github-pat', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'jenkin-with-status-repohook', variable: 'GITHUB_TOKEN')]) {
                         step([
                             $class: 'GitHubCommitStatusSetter',
                             reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/NP10t/VNGo_Jenkins"],
                             commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
                             contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
                             statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]],
-                            credsId: 'jenkins2-with-status-repohook',
+                            credsId: 'jenkin-with-status-repohook',
                         ])
                     }
                 }
