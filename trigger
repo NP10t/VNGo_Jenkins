@@ -5,3 +5,5 @@ truoc khi cherry pick
 
 checkout dev
 checkout main
+
+checkout dev 2
