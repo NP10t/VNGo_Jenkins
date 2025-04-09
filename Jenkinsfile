@@ -89,7 +89,7 @@ pipeline {
                             commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
                             contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
                             statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]],
-                            credsId: 'jenkin-with-status-repohook',
+                            errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]]
                         ])
                     }
                 }
