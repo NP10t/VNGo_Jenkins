@@ -15,3 +15,6 @@ checkout dev 2
 add dev
 
 addmap
+
+addmap2
+addmap3
