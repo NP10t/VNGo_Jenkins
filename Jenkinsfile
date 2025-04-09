@@ -80,15 +80,18 @@ pipeline {
         stage('Report Status') {
             steps {
                 script {
-                    def status = currentBuild.result == 'SUCCESS' ? 'success' : 'failure'
                     def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-                    step([
-                        $class: 'GitHubCommitStatusSetter',
-                        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/your-username/your-repo"],
-                        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
-                        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
-                        statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]]
-                    ])
+                    def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
+                    withCredentials([string(credentialsId: 'github-pat', variable: 'GITHUB_TOKEN')]) {
+                        step([
+                            $class: 'GitHubCommitStatusSetter',
+                            reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/NP10t/VNGo_Jenkins"],
+                            commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
+                            contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
+                            statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]],
+                            credsId: 'jenkins2-with-status-repohook',
+                        ])
+                    }
                 }
             }
         }
