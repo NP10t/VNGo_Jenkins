@@ -85,7 +85,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'jenkin-with-status-repohook', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
                         step([
                             $class: 'GitHubCommitStatusSetter',
-                            reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/your-username/your-repo"],
+                            reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/NP10t/VNGo_Jenkins"],
                             commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commitSha],
                             contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins"],
                             statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", state: status, message: "Build ${status}"]]],
