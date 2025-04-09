@@ -18,3 +18,4 @@ addmap
 
 addmap2
 addmap3
+addmap4
