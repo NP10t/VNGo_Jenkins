@@ -4,3 +4,4 @@ day la code o dev
 truoc khi cherry pick
 
 checkout dev
+checkout main

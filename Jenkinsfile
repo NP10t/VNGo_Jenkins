@@ -81,7 +81,8 @@ pipeline {
             steps {
                 script {
                     def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-                    def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
+                    // def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
+                    def status = currentBuild.currentResult == 'SUCCESS' ? 'success' : 'failure'
                     withCredentials([usernamePassword(credentialsId: 'jenkin-with-status-repohook', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
                         sh """
                             curl -H "Authorization: token ${GITHUB_TOKEN}" \
@@ -92,6 +93,18 @@ pipeline {
                         """
                     }
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                sh '''
+                    echo "Cleaning up after pipeline..."
+                    docker stop mysql-service || true
+                    docker rm -f mysql-service || true
+                '''
             }
         }
     }
