@@ -77,24 +77,24 @@ pipeline {
             }
         }
 
-        stage('Report Status') {
-            steps {
-                script {
-                    def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-                    // def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
-                    def status = currentBuild.currentResult == 'SUCCESS' ? 'success' : 'failure'
-                    withCredentials([usernamePassword(credentialsId: 'jenkin-with-status-repohook', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
-                        sh """
-                            curl -H "Authorization: token ${GITHUB_TOKEN}" \
-                                 -H "Accept: application/vnd.github.v3+json" \
-                                 -X POST \
-                                 -d '{\"state\":\"${status}\",\"context\":\"ci/jenkins\",\"description\":\"Build ${status}\",\"target_url\":\"${env.BUILD_URL}\"}' \
-                                 https://api.github.com/repos/NP10t/VNGo_Jenkins/statuses/${commitSha}
-                        """
-                    }
-                }
-            }
-        }
+        // stage('Report Status') {
+        //     steps {
+        //         script {
+        //             def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+        //             // def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
+        //             def status = currentBuild.currentResult == 'SUCCESS' ? 'success' : 'failure'
+        //             withCredentials([usernamePassword(credentialsId: 'jenkin-with-status-repohook', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
+        //                 sh """
+        //                     curl -H "Authorization: token ${GITHUB_TOKEN}" \
+        //                          -H "Accept: application/vnd.github.v3+json" \
+        //                          -X POST \
+        //                          -d '{\"state\":\"${status}\",\"context\":\"ci/jenkins\",\"description\":\"Build ${status}\",\"target_url\":\"${env.BUILD_URL}\"}' \
+        //                          https://api.github.com/repos/NP10t/VNGo_Jenkins/statuses/${commitSha}
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     post {

@@ -22,3 +22,9 @@ addmap3
 addmap4
 
 addmap5
+
+addmap6
+
+addmap7
+
+addmap8
