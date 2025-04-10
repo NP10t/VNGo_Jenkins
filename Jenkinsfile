@@ -1,6 +1,10 @@
 pipeline {
+    // agent { 
+    //     label 'docker-python-label' 
+    // }
+
     agent { 
-        label 'docker-python-label' 
+        label 'docker-agent'
     }
 
     environment {
