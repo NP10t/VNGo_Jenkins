@@ -12,11 +12,22 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = "/opt/java/openjdk"
+        JAVA_HOME = sh(script: 'readlink -f $(which java) | sed "s:bin/java::"', returnStdout: true).trim()
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
+
+        stage('Check Java Environment') {
+            steps {
+                sh '''
+                    echo "Java Version:"
+                    java -version
+                    echo "Java Home: $JAVA_HOME"
+                    echo "PATH: $PATH"
+                '''
+            }
+        }
 
         stage('Check Agent') {
             steps {
@@ -35,17 +46,6 @@ pipeline {
                         docker system prune -f || true
                     '''
                 }
-            }
-        }
-
-        stage('Check Java Environment') {
-            steps {
-                sh '''
-                    echo "Java Version:"
-                    java -version
-                    echo "Java Home: $JAVA_HOME"
-                    echo "PATH: $PATH"
-                '''
             }
         }
 

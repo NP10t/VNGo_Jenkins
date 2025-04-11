@@ -1,3 +1,13 @@
+sudo add-apt-repository ppa:openjdk-r/ppa -y
+sudo apt update
+sudo apt install openjdk-21-jdk -y
+sudo update-alternatives --config java
+
+readlink -f $(which java) | sed "s:bin/java::"
+
+
+
+
 create working dir
 sudo mkdir /jenkins-worker
 
