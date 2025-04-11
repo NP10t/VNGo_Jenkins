@@ -8,7 +8,7 @@ pipeline {
     // }
 
     agent { 
-        label 'first-worker'
+        label 'first-node'
     }
 
     environment {
