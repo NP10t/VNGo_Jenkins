@@ -1,0 +1,17 @@
+create working dir
+sudo mkdir /jenkins-worker
+
+tải agent.jar về:
+Vì Jenkins đang chạy trên host windows, nên để giao tiếp với host windows
+cat /etc/resolv.conf | grep nameserver
+nó trả về ip của nameserver, các yêu cầu đến nameserver sẽ được windows lắng nghe
+
+nhưng user chạy ứng dụng jenkins cần có quyền thực thi agent.jar trong thư mục đó
+sudo chmod 777 /jenkins-worker
+
+chạy agent.jar để agent kết nối đến Jenkins controller
+java -jar agent.jar -url http://10.255.255.254:8080/ -secret a7bd952bb35be64d1f7bb181c8bc959795303f1b5b1fd6d41ad462ff250c35b3 -name "first-node" -webSocket -workDir "/jenkins-worker"
+
+Nếu port 3306 đã bị chiếm dụng
+netstat -aon | findstr 3306
+taskkill /PID 6712 /F

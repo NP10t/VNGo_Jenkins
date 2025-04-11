@@ -78,6 +78,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 sh '''
+                    echo $JAVA_HOME
                     chmod +x ./mvnw
                     ./mvnw test -D"spring.profiles.active"="dev"
                 '''
