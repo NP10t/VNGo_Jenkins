@@ -3,8 +3,12 @@ pipeline {
     //     label 'docker-python-label' 
     // }
 
+    // agent { 
+    //     label 'docker-agent'
+    // }
+
     agent { 
-        label 'docker-agent'
+        label 'first-worker'
     }
 
     environment {
