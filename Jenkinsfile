@@ -12,7 +12,8 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = sh(script: 'readlink -f $(which java) | sed "s:bin/java::"', returnStdout: true).trim()
+        // JAVA_HOME = sh(script: 'readlink -f $(which java) | sed "s:bin/java::"', returnStdout: true).trim()
+        JAVA_HOME = "/usr/lib/jvm/java-21-openjdk-amd64/"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
