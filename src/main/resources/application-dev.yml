@@ -4,8 +4,9 @@ server:
     context-path: "/vngo"
 spring:
   datasource:
-    # url: jdbc:mysql://jenkins-docker:3306/vngo
-    url: jdbc:mysql://10.255.255.254:3306/vngo
+    # url: jdbc:mysql://jenkins-docker:3306/vngo # trước khi chạy mysql trong docker in docker
+    url: jdbc:mysql://10.255.255.254:3306/vngo  # chạy mysql trên host window, 10.255.255.254 là 
+                                                # nơi để gửi lệnh cho window từ wsl
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: root
     password: 123456
