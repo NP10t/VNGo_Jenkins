@@ -10,7 +10,7 @@ Then, create PRs to merge to main. There are two checks to pass:
 - continuous-integration/jenkins/branch: The commit from feature/map must pass the unit test.
 - continuous-integration/jenkins/pr-merge: The result of merging must pass the unit test.
 
-<img src="https://github.com/user-attachments/assets/b7cea6f1-c711-43f5-90a7-9316f4d316d9" width="400">
+<img src="https://github.com/user-attachments/assets/b7cea6f1-c711-43f5-90a7-9316f4d316d9" width="700">
 
 ## Create Worker Node Jenkins to Run the Job
 1) Download Java
