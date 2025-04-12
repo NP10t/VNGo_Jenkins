@@ -14,27 +14,35 @@ Then, create PRs to merge to main. There are two checks to pass:
 
 ## Create Worker Node Jenkins to Run the Job
 1) Download Java
+```sh
 sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt update
 sudo apt install openjdk-21-jdk -y
 sudo update-alternatives --config java
-
-2) Create remote working directory for the node
+```
+3) Create remote working directory for the node
 Create working directory
+```sh
 sudo mkdir /jenkins-worker
-
-3) Create the node. The worker will actively connect to the Jenkins controller using JNLP by choosing Launch method: Launch agent by connecting it to the controller.
+```
+5) Create the node. The worker will actively connect to the Jenkins controller using JNLP by choosing Launch method: Launch agent by connecting it to the controller.
 <img src="https://github.com/user-attachments/assets/d00f5e84-881a-4b65-b500-839f9e7c8991" width="700">
 
-4) Download and run agent.jar
+6) Download and run agent.jar
 Since Jenkins is running on a Windows host, to communicate with the Windows host:
+```sh
 cat /etc/resolv.conf | grep nameserver
+```
 
 However, the user running the Jenkins application needs execution rights for agent.jar in that directory:
+```sh
 sudo chmod 777 /jenkins-worker
+```
 
 Run agent.jar to connect the agent to the Jenkins Controller:
+```sh
 java -jar agent.jar -url http://10.255.255.254:8080/ -secret <secret given by Jenkins after creating the node> -name "first-node" -webSocket -workDir "/jenkins-worker"
+```
 
 <img src="https://github.com/user-attachments/assets/990447d3-f9e7-47dd-a051-081c77b91b29" width="700">
 
