@@ -1,14 +1,34 @@
 pipeline {
+    // agent { 
+    //     label 'docker-python-label' 
+    // }
+
+    // agent { 
+    //     label 'docker-agent'
+    // }
+
     agent { 
-        label 'docker-python-label' 
+        label 'first-node'
     }
 
     environment {
-        JAVA_HOME = "/opt/java/openjdk"
+        // JAVA_HOME = sh(script: 'readlink -f $(which java) | sed "s:bin/java::"', returnStdout: true).trim()
+        JAVA_HOME = "/usr/lib/jvm/java-21-openjdk-amd64/"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
+
+        stage('Check Java Environment') {
+            steps {
+                sh '''
+                    echo "Java Version:"
+                    java -version
+                    echo "Java Home: $JAVA_HOME"
+                    echo "PATH: $PATH"
+                '''
+            }
+        }
 
         stage('Check Agent') {
             steps {
@@ -30,34 +50,28 @@ pipeline {
             }
         }
 
-        stage('Check Java Environment') {
-            steps {
-                sh '''
-                    echo "Java Version:"
-                    java -version
-                    echo "Java Home: $JAVA_HOME"
-                    echo "PATH: $PATH"
-                '''
-            }
-        }
-
         stage('Setup MySQL Service') {
             steps {
-                script {
-                    sh '''
-                        docker run -d --name mysql-service \
-                            -e MYSQL_ROOT_PASSWORD=123456 \
-                            -e MYSQL_DATABASE=vngo \
-                            -p 3306:3306 \
-                            mysql:8.0 \
-                    '''
-                    sh '''
-                        until docker exec mysql-service mysql -uroot -p123456 -e "SELECT 1;" > /dev/null 2>&1; do
-                            echo "Waiting for MySQL to be ready..."
-                            sleep 5
-                        done
-                        echo "MySQL is ready!"
-                    '''
+                withCredentials([
+                    usernamePassword(credentialsId: 'mysql-usernam-password', usernameVariable: 'MYSQL_USER', passwordVariable: 'MYSQL_PASSWORD'),
+                    string(credentialsId: 'database-name', variable: 'MYSQL_DB')
+                    ]) {
+                    script {
+                        sh '''
+                            docker run -d --name mysql-service \
+                                -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} \
+                                -e MYSQL_DATABASE=${MYSQL_DB} \
+                                -p 3306:3306 \
+                                mysql:8.0 \
+                        '''
+                        sh '''
+                            until docker exec mysql-service mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; do
+                                echo "Waiting for MySQL to be ready..."
+                                sleep 5
+                            done
+                            echo "MySQL is ready!"
+                        '''
+                    }
                 }
             }
         }
@@ -65,6 +79,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 sh '''
+                    echo $JAVA_HOME
                     chmod +x ./mvnw
                     ./mvnw test -D"spring.profiles.active"="dev"
                 '''
@@ -76,25 +91,6 @@ pipeline {
                 sh './mvnw package -DskipTests'
             }
         }
-
-        // stage('Report Status') {
-        //     steps {
-        //         script {
-        //             def commitSha = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-        //             // def status = currentBuild.result == null ? 'success' : currentBuild.result.toLowerCase()
-        //             def status = currentBuild.currentResult == 'SUCCESS' ? 'success' : 'failure'
-        //             withCredentials([usernamePassword(credentialsId: 'jenkin-with-status-repohook', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
-        //                 sh """
-        //                     curl -H "Authorization: token ${GITHUB_TOKEN}" \
-        //                          -H "Accept: application/vnd.github.v3+json" \
-        //                          -X POST \
-        //                          -d '{\"state\":\"${status}\",\"context\":\"ci/jenkins\",\"description\":\"Build ${status}\",\"target_url\":\"${env.BUILD_URL}\"}' \
-        //                          https://api.github.com/repos/NP10t/VNGo_Jenkins/statuses/${commitSha}
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     post {
