@@ -44,6 +44,30 @@ Run agent.jar to connect the agent to the Jenkins Controller:
 java -jar agent.jar -url http://10.255.255.254:8080/ -secret <secret given by Jenkins after creating the node> -name "first-node" -webSocket -workDir "/jenkins-worker"
 ```
 
+Incase port 3306 is already in use:
+Check if wsl is using Docker daemon of Docker Desktop (Docker for Windows) or using wsl's Docker daemon:
+Run these commands on Windows and WSL
+```sh
+docker info
+docker context ls
+```
+If these Docker Clients both use Docker Destop daemon like me, find the process that is using port 3306 on both WSL2 and Windows to terminate that process.
+
+WSL2:
+```sh
+sudo netstat -tulnp | grep 3306 #find process within the network namespace of Windows
+sudo kill -9 6712
+
+```
+Window
+```sh
+netstat -aon | findstr 3306 # find process within the network namespace of WSL2
+taskkill /PID 6712 /F
+```
+WSL2 uses Window Docker Desktop daemon, this daemon map port to Windows host by default, eventhough the process runs within the network namespace of WSL2.
+
+
+
 <img src="https://github.com/user-attachments/assets/990447d3-f9e7-47dd-a051-081c77b91b29" width="700">
 
 The node is now online.
