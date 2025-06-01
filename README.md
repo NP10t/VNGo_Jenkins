@@ -1,5 +1,5 @@
 # vngo-backend
-VNGo is a drive-booking app system. This system has three apps in total: VNGo, VNGo Driver, and VNGo Admin.
+VNGo is a drive-booking apps system. This system has 3 apps in total, they are VNGo, VNGo Driver and VNGo Admin.
 
 This is an end-term project of our four-member team in the Intro to Software Engineering course.
 
@@ -44,6 +44,30 @@ Run agent.jar to connect the agent to the Jenkins Controller:
 java -jar agent.jar -url http://10.255.255.254:8080/ -secret <secret given by Jenkins after creating the node> -name "first-node" -webSocket -workDir "/jenkins-worker"
 ```
 
+Incase port 3306 is already in use:
+Check if wsl is using Docker daemon of Docker Desktop (Docker for Windows) or using wsl's Docker daemon:
+Run these commands on Windows and WSL
+```sh
+docker info
+docker context ls
+```
+If these Docker Clients both use Docker Destop daemon like me, find the process that is using port 3306 on both WSL2 and Windows to terminate that process.
+
+WSL2:
+```sh
+sudo netstat -tulnp | grep 3306 #find process within the network namespace of Windows
+sudo kill -9 6712
+
+```
+Window
+```sh
+netstat -aon | findstr 3306 # find process within the network namespace of WSL2
+taskkill /PID 6712 /F
+```
+WSL2 uses Window Docker Desktop daemon, this daemon map port to Windows host by default, eventhough the process runs within the network namespace of WSL2.
+
+
+
 <img src="https://github.com/user-attachments/assets/990447d3-f9e7-47dd-a051-081c77b91b29" width="700">
 
 The node is now online.
@@ -69,6 +93,8 @@ Discover branches: Exclude branches that are also filed as PRs.
 With this choice, Jenkins won't create continuous-integration/jenkins/pr-head, which is the test for the commit to merge to main.
 We don’t need that because we already have continuous-integration/jenkins/branch doing that job.
 The continuous-integration/jenkins/branch will automatically be created by Jenkins when there is any push to feature/map.
+
+<img src="https://github.com/user-attachments/assets/4528521a-8cab-40bd-8ca0-74328af7505c" width="700">
 <img src="https://github.com/user-attachments/assets/c275d257-9f54-4e15-a178-ed9809a8bda0" width="700">
 
 Even though feature/map doesn't require any test to pass to push, continuous-integration/jenkins/branch just runs by Jenkins and indicates the result as a green tick or red cross as shown in this image.

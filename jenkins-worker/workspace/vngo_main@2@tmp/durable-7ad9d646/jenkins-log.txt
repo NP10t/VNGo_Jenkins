@@ -1,0 +1,77 @@
++ echo /usr/lib/jvm/java-21-openjdk-amd64/
+/usr/lib/jvm/java-21-openjdk-amd64/
++ chmod +x ./mvnw
++ ./mvnw test -Dspring.profiles.active=dev
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.group1:VNGo >---------------------------
+[INFO] Building VNGo 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ VNGo ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ VNGo ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 115 source files with javac [debug parameters release 21] to target/classes
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/entity/DriverWallet.java:[31,24] @SuperBuilder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/entity/Voucher.java:[55,21] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/entity/BaseAccount.java:[15,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/LocationMapper.java:[14,14] Unmapped target properties: "createdAt, updatedAt".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/LocationMapper.java:[16,14] Unmapped target properties: "createdAt, updatedAt".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/LocationMapper.java:[20,10] Unmapped target properties: "createdAt, updatedAt, id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/NotificationMapper.java:[13,18] Unmapped target properties: "createdAt, updatedAt, id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/NotificationMapper.java:[15,10] Unmapped target properties: "createdAt, updatedAt, id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/UserMapper.java:[14,18] Unmapped target property: "dob".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/DriverMapper.java:[17,12] Unmapped target properties: "createdAt, updatedAt, id, accountStatus, avatarUrl, vehicleType, vehicleNumber, licenseNumber, identityCardNumber, ratingAvg, totalTrips, totalEarnings, workingStatus".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/DriverMapper.java:[21,10] Unmapped target properties: "createdAt, updatedAt, id, phoneNumber, password, accountStatus, avatarUrl, vehicleType, vehicleNumber, licenseNumber, identityCardNumber, ratingAvg, totalTrips, totalEarnings, workingStatus, authorities".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/BookingMapper.java:[12,13] Unmapped target properties: "createdAt, updatedAt". Mapping from property "LocationCreationRequest pickupLocation" to "Location pickupLocation".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/BookingMapper.java:[12,13] Unmapped target properties: "createdAt, updatedAt". Mapping from property "LocationCreationRequest destinationLocation" to "Location destinationLocation".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/BookingMapper.java:[12,13] Unmapped target properties: "createdAt, updatedAt, id, user, driver, finalPrice, pickupTime, completionTime, bookingStatus, cancellationReason".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/VoucherMapper.java:[12,13] Unmapped target property: "id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/VoucherMapper.java:[16,10] Unmapped target property: "id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/DriverWalletMapper.java:[13,18] Unmapped target property: "driverId".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/ReportMapper.java:[10,12] Unmapped target properties: "id, booking, reportStatus, admin".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/ReportMapper.java:[12,20] Unmapped target properties: "bookingId, adminId".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/PaymentMapper.java:[13,13] Unmapped target properties: "createdAt, updatedAt, id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/PaymentMapper.java:[17,10] Unmapped target properties: "createdAt, updatedAt, id".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/RatingMapper.java:[10,12] Unmapped target properties: "createdAt, updatedAt, id, booking".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/RatingMapper.java:[12,20] Unmapped target property: "bookingId".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/AdminMapper.java:[16,11] Unmapped target properties: "createdAt, updatedAt, id, dateOfBirth, accountStatus".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/AdminMapper.java:[18,10] Unmapped target properties: "createdAt, updatedAt, id, dateOfBirth, accountStatus, authorities".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/UserMapper.java:[14,18] Unmapped target property: "dob".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/UserMapper.java:[17,10] Unmapped target properties: "createdAt, updatedAt, id, dateOfBirth, accountStatus".
+[WARNING] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/mapper/UserMapper.java:[19,10] Unmapped target properties: "createdAt, updatedAt, id, dateOfBirth, accountStatus, favouriteLocations, authorities".
+[INFO] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/exception/GlobalExceptionHandler.java: /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/exception/GlobalExceptionHandler.java uses unchecked or unsafe operations.
+[INFO] /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/main/java/com/group1/VNGo/exception/GlobalExceptionHandler.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ VNGo ---
+[INFO] skip non existing resourceDirectory /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ VNGo ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ VNGo ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.group1.VNGo.VnGoApplicationTests
+19:02:22.651 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.group1.VNGo.VnGoApplicationTests]: VnGoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:02:24.147 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.group1.VNGo.VnGoApplication for test class com.group1.VNGo.VnGoApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.0)
+
+2025-06-01T19:02:28.460Z  INFO 20748 --- [           main] com.group1.VNGo.VnGoApplicationTests     : Starting VnGoApplicationTests using Java 21.0.6 with PID 20748 (started by nguyenphuc in /mnt/e/Jenkins/jenkins-worker/workspace/vngo_main@2)
+2025-06-01T19:02:28.464Z  INFO 20748 --- [           main] com.group1.VNGo.VnGoApplicationTests     : The following 1 profile is active: "dev"

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  docker-proxy:
+    image: alpine/socat
+    container_name: docker-proxy
+    networks:
+      jenkins:
+        aliases:
+          - docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
+  jenkins-blueocean:
+    image: myjenkins-blueocean:2.492.2-1
+    container_name: jenkins-blueocean
+    restart: on-failure
+    networks:
+      - jenkins
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+
+networks:
+  jenkins:
+    name: jenkins
+
+volumes:
+  jenkins-data:
+  jenkins-docker-certs:

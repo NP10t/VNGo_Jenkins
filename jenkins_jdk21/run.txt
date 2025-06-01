@@ -6,3 +6,6 @@ docker run --name jenkins-blueocean --restart=on-failure --detach ^
   --volume jenkins-data:/var/jenkins_home ^
   --volume jenkins-docker-certs:/certs/client:ro ^
   --publish 8080:8080 --publish 50000:50000 myjenkins-blueocean:2.492.2-1
+
+  get the password
+  docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
